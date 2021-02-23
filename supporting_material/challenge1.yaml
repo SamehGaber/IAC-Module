@@ -1,0 +1,40 @@
+ AWSTemplateFormatVersion: 2010-09-09
+ Description: Carlos Rivas / Udacity - This template deploys a VPC
+ Resources:
+ # provisioning a security group
+  mySG:
+   Type: AWS::EC2::SecurityGroup
+   Properties: 
+     GroupDescription: testSG
+     GroupName: testSG
+     SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+     SecurityGroupEgress:
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: 0.0.0.0/0
+     VpcId: vpc-3d6c0e45
+# provisioning an EC2 instance ( amazon linux)
+  myEC2:
+   Type: AWS::EC2::Instance
+   Properties: 
+     ImageId: ami-0e999cbd62129e3b1
+     InstanceType: t3.micro
+     NetworkInterfaces: 
+      - AssociatePublicIpAddress: "true"
+        DeviceIndex: "0"
+     UserData:
+       Fn::Base64: !Sub |
+         #!/bin/bash
+         sudo yum update -y
+         sudo yum install -y httpd
+         sudo systemctl start httpd
+         sudo systemctl enable httpd
+
+# vpc id : vpc-3d6c0e45
+#public subnet subnet-389d8473
+#az id usw2-az2
