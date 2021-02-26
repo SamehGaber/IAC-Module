@@ -1,7 +1,7 @@
 [
 	{
 		"ParameterKey": "EnvironmentName",
-		"ParameterValue": "challenge2-infra-project"
+		"ParameterValue": "udacity-project-demo"
 	},
 	{
 		"ParameterKey": "VpcCIDR",
